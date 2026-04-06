@@ -9,11 +9,32 @@ document.addEventListener("DOMContentLoaded", () => {
     const mobileBtn = document.getElementById('mobile-btn');
     const mobileNav = document.getElementById('mobile-nav');
     const themeBtn = document.getElementById('theme-btn');
+    const themePill = document.getElementById('theme-pill');
+    const themeLabel = document.getElementById('theme-label');
     const mobileLinks = mobileNav.querySelectorAll('a');
+    const liveDemoButtons = document.querySelectorAll('.live-demo-btn');
+    const videoModal = document.getElementById('video-modal');
+    const videoModalClose = document.getElementById('video-modal-close');
+    const videoModalPlayer = document.getElementById('video-modal-player');
+    const videoModalSource = document.getElementById('video-modal-source');
+
 
     // Themes array to cycle through
     const themes = ['coral', 'acid', 'dark','milesmorales'];
     let currentThemeIndex = 0;
+
+    const themeDisplayNames = {
+        coral: 'Coral',
+        acid: 'Lemon Lime',
+        dark: 'Dark',
+        milesmorales: 'Miles Morales'
+    };
+
+    function updateThemeLabel(theme) {
+        if (themeLabel) {
+            themeLabel.textContent = themeDisplayNames[theme] || theme;
+        }
+    }
 
     // Check LocalStorage for theme
     const savedTheme = localStorage.getItem('brutal-theme');
@@ -45,24 +66,42 @@ document.addEventListener("DOMContentLoaded", () => {
     // Apply initially based on loaded theme
     const currentTheme = document.documentElement.getAttribute('data-theme') || 'coral';
     manageVenomGlow(currentTheme);
+    updateThemeLabel(currentTheme);
 
     // Theme Toggle Handler
+    const cycleTheme = () => {
+        // Cycle to next theme
+        currentThemeIndex = (currentThemeIndex + 1) % themes.length;
+        const newTheme = themes[currentThemeIndex];
+
+        document.documentElement.setAttribute('data-theme', newTheme);
+        localStorage.setItem('brutal-theme', newTheme);
+
+        // Check and apply venom glow effect
+        manageVenomGlow(newTheme);
+        updateThemeLabel(newTheme);
+
+        // Re-render icons after slight style shift if needed
+        setTimeout(() => {
+            lucide.createIcons();
+        }, 50);
+    };
+
     if (themeBtn) {
-        themeBtn.addEventListener('click', () => {
-            // Cycle to next theme
-            currentThemeIndex = (currentThemeIndex + 1) % themes.length;
-            const newTheme = themes[currentThemeIndex];
-            
-            document.documentElement.setAttribute('data-theme', newTheme);
-            localStorage.setItem('brutal-theme', newTheme);
-            
-            // Check and apply venom glow effect
-            manageVenomGlow(newTheme);
-            
-            // Re-render icons after slight style shift if needed
-            setTimeout(() => {
-                lucide.createIcons();
-            }, 50);
+        themeBtn.addEventListener('click', (event) => {
+            event.stopPropagation();
+            cycleTheme();
+        });
+    }
+
+    if (themePill) {
+        themePill.addEventListener('click', cycleTheme);
+
+        themePill.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault();
+                cycleTheme();
+            }
         });
     }
 
@@ -150,4 +189,44 @@ document.addEventListener("DOMContentLoaded", () => {
     popInElements.forEach(el => {
         scrollObserver.observe(el);
     });
+
+    if (videoModal && videoModalClose && videoModalPlayer && videoModalSource && liveDemoButtons.length > 0) {
+        const openVideoModal = (videoSrc) => {
+            if (!videoSrc) return;
+            videoModalSource.src = videoSrc;
+            videoModalPlayer.load();
+            videoModal.classList.add('open');
+            videoModal.setAttribute('aria-hidden', 'false');
+            body.style.overflow = 'hidden';
+        };
+
+        const closeVideoModal = () => {
+            videoModal.classList.remove('open');
+            videoModal.setAttribute('aria-hidden', 'true');
+            videoModalPlayer.pause();
+            videoModalPlayer.currentTime = 0;
+            body.style.overflow = '';
+        };
+
+        liveDemoButtons.forEach(button => {
+            button.addEventListener('click', (event) => {
+                event.preventDefault();
+                openVideoModal(button.getAttribute('data-video-src'));
+            });
+        });
+
+        videoModalClose.addEventListener('click', closeVideoModal);
+
+        videoModal.addEventListener('click', (event) => {
+            if (event.target === videoModal) {
+                closeVideoModal();
+            }
+        });
+
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape' && videoModal.classList.contains('open')) {
+                closeVideoModal();
+            }
+        });
+    }
 });
