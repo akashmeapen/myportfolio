@@ -753,6 +753,20 @@ body {
     border-top: var(--border-thickness) solid var(--border-color);
 }
 
+.contact-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 30px;
+    margin-bottom: 60px;
+}
+
+@media (min-width: 992px) {
+    .contact-grid {
+        grid-template-columns: 1.2fr 0.8fr;
+        align-items: stretch;
+    }
+}
+
 .contact-card {
     background: var(--bg);
     color: var(--fg);
@@ -760,7 +774,87 @@ body {
     box-shadow: var(--shadow-offset) var(--shadow-offset) 0px var(--shadow-color);
     border-radius: var(--border-radius);
     padding: 40px;
-    margin-bottom: 60px;
+    margin-bottom: 0;
+}
+
+.info-card {
+    background: var(--primary);
+    color: var(--fg-invert);
+    border: var(--border-thickness) solid var(--border-color);
+    box-shadow: var(--shadow-offset) var(--shadow-offset) 0px var(--shadow-color);
+    border-radius: var(--border-radius);
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    transition: transform var(--transition);
+}
+
+.info-card:hover {
+    transform: translateY(-5px);
+}
+
+.info-badge {
+    align-self: flex-start;
+    background: var(--card-bg);
+    color: var(--card-fg);
+    border: 2px solid var(--border-color);
+    padding: 6px 12px;
+    border-radius: 50px;
+    font-family: var(--font-mono);
+    font-weight: 700;
+    font-size: 0.85rem;
+    margin-bottom: 20px;
+    box-shadow: 3px 3px 0px var(--border-color);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.info-title {
+    font-size: 2rem;
+    font-weight: 900;
+    margin-bottom: 15px;
+    line-height: 1.1;
+    text-transform: uppercase;
+}
+
+.info-desc {
+    font-size: 1.05rem;
+    line-height: 1.6;
+    margin-bottom: 30px;
+}
+
+.email-box {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--card-bg);
+    color: var(--card-fg);
+    border: 2px solid var(--border-color);
+    padding: 12px 18px;
+    border-radius: 8px;
+    font-family: var(--font-mono);
+    font-weight: 700;
+    box-shadow: 4px 4px 0px var(--border-color);
+    width: fit-content;
+    transition: transform 0.1s, box-shadow 0.1s;
+}
+
+.email-box:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0px var(--border-color);
+}
+
+.email-link {
+    color: inherit;
+    text-decoration: none;
+}
+
+.email-link:hover {
+    text-decoration: underline;
 }
 
 .contact-header { text-align: center; margin-bottom: 30px; }

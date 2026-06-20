@@ -167,7 +167,7 @@ document.addEventListener("DOMContentLoaded", () => {
         rootMargin: "0px 0px -50px 0px"
     };
 
-    const popInElements = document.querySelectorAll('.skill-card, .project-item, .contact-card, .social-banner, .resume-banner');
+    const popInElements = document.querySelectorAll('.skill-card, .project-item, .contact-card, .info-card, .social-banner, .resume-banner');
     
     // Set initial state
     popInElements.forEach(el => {

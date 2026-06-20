@@ -217,20 +217,37 @@
     <!-- Find Me / Contact Section -->
     <section class="find-me section-pad" id="contact">
         <div class="container">
-            <div class="contact-card">
-                <div class="contact-header">
-                    <h2>LET'S BUILD SOMETHING AWESOME</h2>
-                    <p class="mono-text">Open for internships, roles, and interesting discussions.</p>
-                </div>
-                
-                <form class="playful-form" onsubmit="event.preventDefault(); alert('Message sent successfully!');">
-                    <div class="form-row">
-                        <input type="text" placeholder="YOUR NAME" required>
-                        <input type="email" placeholder="YOUR EMAIL" required>
+            <div class="contact-grid">
+                <div class="contact-card">
+                    <div class="contact-header">
+                        <h2>LET'S BUILD SOMETHING AWESOME</h2>
+                        <p class="mono-text">Open for internships, roles, and interesting discussions.</p>
                     </div>
-                    <textarea placeholder="WHAT'S ON YOUR MIND?" rows="4" required></textarea>
-                    <button type="submit" class="btn btn-block">SEND MESSAGE <i data-lucide="send"></i></button>
-                </form>
+                    
+                    <form class="playful-form" onsubmit="event.preventDefault(); alert('Message sent successfully!');">
+                        <div class="form-row">
+                            <input type="text" placeholder="YOUR NAME" required>
+                            <input type="email" placeholder="YOUR EMAIL" required>
+                        </div>
+                        <textarea placeholder="WHAT'S ON YOUR MIND?" rows="4" required></textarea>
+                        <button type="submit" class="btn btn-block">SEND MESSAGE <i data-lucide="send"></i></button>
+                    </form>
+                </div>
+
+                <div class="info-card">
+                    <div class="info-badge">
+                        <i data-lucide="info"></i>
+                        <span>UPDATES</span>
+                    </div>
+                    <h3 class="info-title">UNDERGOING WORK</h3>
+                    <p class="mono-text info-desc">
+                        I am currently undergoing work on this portfolio and other exciting projects. If you have any suggestions or feedback you would like to share, please feel free to drop a message or contact me directly via email.
+                    </p>
+                    <div class="email-box">
+                        <i data-lucide="mail"></i>
+                        <a href="mailto:akashmeapen@gmail.com" class="email-link">akashmeapen@gmail.com</a>
+                    </div>
+                </div>
             </div>
 
             <div class="social-banner" id="resume">
